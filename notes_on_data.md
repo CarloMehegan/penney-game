@@ -33,10 +33,10 @@ how do we bring these things together?
 	- 2. `parse_sims()`
 	- 3. `make_heatmap(type_of_heatmap)`
 - maybe `parse_sims` always runs after `new_sims`; do we need to store unparsed data?
-- wrap all three into a python script that takes a command line argument
-	- `python penney.py --new-sims=1000`
-		- "running sims... done!"
+- rubric says we need two functions that can be ran: a function that generates new simulations, and a function that generates heatmaps for the two variations
+	- so we have `penney.new_sims(iterations)` which adds new iterations
+ 		- "running sims... done!"
 		- "parsing data... done!"
-		- "creating heatmap.. done!"
-		- "view heatmap in assets/.."
-	- and then the heatmap would show up in files
+	- second function `penney.get_heatmap(1_or_2)` returns an image
+ 		- "generating heatmap... done!"
+   		- "variation 1: (picture)"
