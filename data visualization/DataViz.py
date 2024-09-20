@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -53,6 +54,8 @@ class DataViz:
         # Save heatmap
         if filename == None:
             filename = f'{path}.png'
+        if os.path.exists(filename):
+            raise Exception(f'{filename} already exists')
         ax.get_figure().savefig(filename)
         
         print(f'<> {filename} saved <>')
