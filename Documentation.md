@@ -3,9 +3,9 @@
 ## Overview
 Penney's Game is played by two players and one deck of cards. Each player chooses a three-card sequence of colors (i.e. Red or Black) and cards are drawn face-up until one of the selected sequences appear (i.e. RRR, or BRB). Penney's game has two variations. 
 
-The first variation tallies the total number of cards from the initial draw until a chosen sequence appears. All cards in the pile are given to the player whose sequence appears. This is repeated until the deck runs out; any cards remaining in the pile at the end are not tallied.
+The **first variation** tallies the **total number of cards** from the initial draw until a chosen sequence appears. All cards in the pile are given to the player whose sequence appears. This is repeated until the deck runs out; any cards remaining in the pile at the end are not tallied.
 
-The second variation counts the number of "tricks" a player scores in a game. Each time a player's sequence appears, their number of tricks increases by 1, repeated until the deck runs out.
+The **second variation** counts the **number of "tricks" a player scores** in a game. Each time a player's sequence appears, their number of tricks increases by 1, repeated until the deck runs out.
 
 Below, you may read the documentation on how our group approached simulating the game, managing/storing our data, and visualizing our data as a heatmap. The project includes four files:
 
@@ -35,11 +35,10 @@ Functionality:
 ## DataManagement.py
 The DataManagement file has several functions associated with storing and processing data for visualization purposes.
 
-`load_process_simulations(path)
-`
+`load_process_simulations(path)`
 
 Parameter:
-- `path` (`str`): the path for the
+- `path` (`str`): the location of the simulation data from the previous step
 
   
 Functionality:
