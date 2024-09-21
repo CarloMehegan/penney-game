@@ -50,6 +50,7 @@ Parameters
 - folder (str, optional): Path to the folder containing the CSV files to process. Default is ‘data’.
 
   
+Functionality
 - Initializes combined DataFrames for each variation using existing data
 - Sets ‘Sequence 1’ and ‘Sequence 2’ as index
 - Iterates through CSV files in folder: reads each CSV, ensures sequences are 3 digits long, determines which variation the file belongs to, updates corresponding combined DataFrame using update_dataframe function
