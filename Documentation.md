@@ -25,6 +25,8 @@ The RunSimulation file will simulate the shuffling of deck of cards and save the
 The DataManagement file has several functions associated with storing and processing data for visualization purposes.
 
 **load_process_simulations(path)**
+
+
 Parameter
 - path (str): the path for the
 
@@ -36,6 +38,8 @@ Functionality
 
 
 **variation1**
+
+
 Parameters
 - deck (str): deck of cards as binary sequence
 - player1_sequence (str): 3-bit sequence for player 1
@@ -48,6 +52,8 @@ Functionality
 - Returns player1_cards, player2_cards: the number of cards collected by each player
 
 **variation2**
+
+
 Parameters
 - deck (str): deck of cards as binary sequence
 - player1_sequence (str): 3-bit sequence for player 1
@@ -60,6 +66,8 @@ Functionality
 - Returns player1_tricks, player2_tricks: number of tricks won by each player
 
 **analyze_all_combinations**
+
+
 Paramter
 - simulations: list of binary strings representing games
 
@@ -69,6 +77,7 @@ Functionality
 - Compiles results into two DataFrames, one for each variation
 
 **combine_past_data**
+
 
 Parameters 
 - existing_var1 (pandas.DataFrame): Existing data for variation 1 for new simulations. 
@@ -88,6 +97,8 @@ Functionality
 
 
 **update_dataframe**
+
+
 Paramters
 - existing_df (pandas.DataFrame): Existing DataFrame to be updated
 - new_df (pandas.DataFrame): DataFrame containing data to be merged
@@ -103,9 +114,12 @@ Functionality
 ---
 
 ## DataVisualization.py
+
+
 The DataVisualization file helps with generating and saving heatmaps for the probability of player 1 winning for every possible combination of color card sequences. 
 
 **generate_heatmap**
+
 Parameters
 - data: This is the DataFrame that contains the total results
 - filename: Name of the file where the heatmap is saved
