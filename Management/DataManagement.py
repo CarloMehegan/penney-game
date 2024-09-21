@@ -109,7 +109,6 @@ def analyze_all_combinations(simulations):
 
     return aggreg_df1, aggreg_df2
 
-#issue would be in these following functions 
 
 def combine_past_data(existing_var1, existing_var2, var1_output_name, var2_output_name, folder='data'):
     variation1_combined = existing_var1.copy() if existing_var1 is not None else pd.DataFrame()
