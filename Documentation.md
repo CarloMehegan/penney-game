@@ -47,7 +47,8 @@ Parameters
 - existing_var2 (pandas.DataFrame): Existing data for variation 2 for new simulations. 
 - var1_output_name (str): Name for output CSV file for combination of all variation 1 win counts. 
 - var2_output_name (str): Name for output CSV file for combination of all vacation 2 win counts. 
-- folder (str, optional): Path to the folder containing the CSV files to process. Default is ‘data’. 
+- folder (str, optional): Path to the folder containing the CSV files to process. Default is ‘data’.
+  \n
 Functionaltiy 
 - Initializes combined DataFrames for each variation using existing data
 - Sets ‘Sequence 1’ and ‘Sequence 2’ as index
