@@ -87,4 +87,9 @@ def analyze_all_combinations(filename):
 
 
 def combine_past_data():
-    pass
+    #read in other csv files in data folder 
+    #combine them with current df for each variation 
+    #save updated csv files without overwriting
+    
+    
+    
