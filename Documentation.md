@@ -68,7 +68,7 @@ Functionality
 **analyze_all_combinations**
 
 
-Paramter
+Parameter
 - simulations: list of binary strings representing games
 
 Functionality
