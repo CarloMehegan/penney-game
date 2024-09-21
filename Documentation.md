@@ -48,7 +48,7 @@ Parameters
 - var1_output_name (str): Name for output CSV file for combination of all variation 1 win counts. 
 - var2_output_name (str): Name for output CSV file for combination of all vacation 2 win counts. 
 - folder (str, optional): Path to the folder containing the CSV files to process. Default is ‘data’.
-  \n
+  $\n$
 Functionaltiy 
 - Initializes combined DataFrames for each variation using existing data
 - Sets ‘Sequence 1’ and ‘Sequence 2’ as index
