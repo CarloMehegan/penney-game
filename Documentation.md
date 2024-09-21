@@ -61,7 +61,12 @@ Functionality
 
 **analyze_all_combinations**
 Paramter
-- filename
+- simulations: list of binary strings representing games
+
+Functionality
+- Generates all possible player 1 and player 2 sequence combinations 
+- For each unique pair of sequences it simulations both variations of the game for each deck in simulations, counts wins for each player in both variations, and calculates win percentages
+- Compiles results into two DataFrames, one for each variation
 
 **combine_past_data**
 
