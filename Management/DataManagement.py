@@ -59,7 +59,7 @@ def variation2(deck, player1_sequence, player2_sequence):
     return player1_tricks, player2_tricks
 
 
-def analyze_all_combinations(filename):
+def analyze_all_combinations(simulations):
     all_sequences = ['{:03b}'.format(i) for i in range(8)]  # Generate sequences as '000', '001', etc.
     results_v1 = []
     results_v2 = []
@@ -70,7 +70,7 @@ def analyze_all_combinations(filename):
                 p1_wins_v1, p2_wins_v1 = 0, 0
                 p1_wins_v2, p2_wins_v2 = 0, 0
 
-                for game in filename:
+                for game in simulations:
                     p1_cards_v1, p2_cards_v1 = variation1(game, p1, p2)
                     if p1_cards_v1 > p2_cards_v1:
                         p1_wins_v1 += 1

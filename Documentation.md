@@ -25,20 +25,43 @@ The RunSimulation file will simulate the shuffling of deck of cards and save the
 The DataManagement file has several functions associated with storing and processing data for visualization purposes.
 
 **load_process_simulations(path)**
-Parameters
-- path (str): the path for the 
-- loads simulation data from .npy file
-- converts all integers into bits for faster processing
-- returns list of simulations as binary to be analyzed later
+Parameter
+- path (str): the path for the
+
+  
+Functionality
+- Loads simulation data from specified file
+- Converts each integer in file to 52-bit binary string
+- Returns a list of the binary strings
+
 
 **variation1**
-- 
+Parameters
+- deck (str): deck of cards as binary sequence
+- player1_sequence (str): 3-bit sequence for player 1
+- player2_sequence (str): 3-bit sequence for player 2
+
+Functionality
+- Initialize card counts and pile size
+- Iterates through the deck to check for matches with player sequences
+- If match is found, matching player receives cards in pile
+- Returns player1_cards, player2_cards: the number of cards collected by each player
 
 **variation2**
+Parameters
+- deck (str): deck of cards as binary sequence
+- player1_sequence (str): 3-bit sequence for player 1
+- player2_sequence (str): 3-bit sequence for player 2
 
+Functionality
+- Initialize trick counters for both players
+- Iterates through deck to check for matches with player sequences
+- When a match is found, matching player scores one trick
+- Returns player1_tricks, player2_tricks: number of tricks won by each player
 
 **analyze_all_combinations**
-
+Paramter
+- filename
 
 **combine_past_data**
 
@@ -47,8 +70,10 @@ Parameters
 - existing_var2 (pandas.DataFrame): Existing data for variation 2 for new simulations. 
 - var1_output_name (str): Name for output CSV file for combination of all variation 1 win counts. 
 - var2_output_name (str): Name for output CSV file for combination of all vacation 2 win counts. 
-- folder (str, optional): Path to the folder containing the CSV files to process. Default is ‘data’. 
-Functionaltiy 
+- folder (str, optional): Path to the folder containing the CSV files to process. Default is ‘data’.
+
+  
+Functionality
 - Initializes combined DataFrames for each variation using existing data
 - Sets ‘Sequence 1’ and ‘Sequence 2’ as index
 - Iterates through CSV files in folder: reads each CSV, ensures sequences are 3 digits long, determines which variation the file belongs to, updates corresponding combined DataFrame using update_dataframe function
