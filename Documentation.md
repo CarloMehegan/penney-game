@@ -22,6 +22,7 @@ The RunSimulation file will simulate the shuffling of decks of cards and save th
 Parameters:
 - `num_iter` (`int`): the number of decks to create
 - `output_filename` (`str`): the file to save the decks in
+- `seed`: the seed to use for random generation
 - `path` (`str`, optional): the path to save the file in. Defaults to `'data'`
 
 Functionality:
@@ -85,20 +86,20 @@ Functionality:
 - Compiles results into two DataFrames, one for each variation
 
 
-**combine_past_data**
+`combine_past_data`
 
 Parameters:
-- `existing_var1` (`pandas.DataFrame`): Existing data for variation 1 for new simulations. 
-- `existing_var2` (`pandas.DataFrame`): Existing data for variation 2 for new simulations. 
-- `var1_output_name` (`str`): Name for output CSV file for combination of all variation 1 win counts. 
-- `var2_output_name` (`str`): Name for output CSV file for combination of all vacation 2 win counts. 
+- `new_var1` (`pandas.DataFrame`): New simulation data to be added to old data for variation 1.
+- `new_var2` (`pandas.DataFrame`): New simulation data to be added to old data for variation 2.
+- `var1_existing_filename` (`str`): The CSV file containing the old data for variation 1.
+- `var2_existing_filename` (`str`): The CSV file containing the old data for variation 2.
 - `folder` (`str`, optional): Path to the folder containing the CSV files to process. Default is `data`.
 
   
 Functionality:
 - Initializes combined DataFrames for each variation using existing data
 - Sets ‘Sequence 1’ and ‘Sequence 2’ as index
-- Iterates through CSV files in folder: reads each CSV, ensures sequences are 3 digits long, determines which variation the file belongs to, updates corresponding combined DataFrame using `update_dataframe` function
+- Reads CSVs, ensures sequences are 3 digits long, determines which variation the file belongs to, updates corresponding combined DataFrame using `update_dataframe` function
 - Resets index of combined DataFrames
 - Saves updated DataFrames to CSV files 
 - Returns the two updated DataFrames 

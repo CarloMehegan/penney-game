@@ -64,39 +64,45 @@ def analyze_all_combinations(simulations):
     results_v1 = []
     results_v2 = []
 
-    for p1 in all_sequences:
-        for p2 in all_sequences:
-            if p1 != p2:
-                p1_wins_v1, p2_wins_v1 = 0, 0
-                p1_wins_v2, p2_wins_v2 = 0, 0
+    total_iterations = len(all_sequences) * (len(all_sequences) - 1)  # Total number of (p1, p2) pairs
 
-                for game in simulations:
-                    p1_cards_v1, p2_cards_v1 = variation1(game, p1, p2)
-                    if p1_cards_v1 > p2_cards_v1:
-                        p1_wins_v1 += 1
-                    elif p2_cards_v1 > p1_cards_v1:
-                        p2_wins_v1 += 1
-                
-                    p1_cards_v2, p2_cards_v2 = variation2(game, p1, p2)
-                    if p1_cards_v2 > p2_cards_v2:
-                        p1_wins_v2 += 1
-                    elif p2_cards_v2 > p1_cards_v2:
-                        p2_wins_v2 += 1
-                
-                results_v1.append({
-                    'Sequence 1': p1, 
-                    'Sequence 2': p2, 
-                    'Player 1 Wins': p1_wins_v1, 
-                    'Player 2 Wins': p2_wins_v1, 
-                    'Player 1 Win %': round((p1_wins_v1/(p1_wins_v1 + p2_wins_v1))*100, 2)
-                })
-                results_v2.append({
-                    'Sequence 1': p1, 
-                    'Sequence 2': p2, 
-                    'Player 1 Wins': p1_wins_v2, 
-                    'Player 2 Wins': p2_wins_v2, 
-                    'Player 1 Win %': round((p1_wins_v2/(p1_wins_v2 + p2_wins_v2))*100, 2) 
-                })
+    with tqdm(total=total_iterations, desc="Processing Pairs") as pbar:
+        for p1 in all_sequences:
+            for p2 in all_sequences:
+
+                if p1 != p2:
+                    p1_wins_v1, p2_wins_v1 = 0, 0
+                    p1_wins_v2, p2_wins_v2 = 0, 0
+
+                    for game in simulations:
+                        p1_cards_v1, p2_cards_v1 = variation1(game, p1, p2)
+                        if p1_cards_v1 > p2_cards_v1:
+                            p1_wins_v1 += 1
+                        elif p2_cards_v1 > p1_cards_v1:
+                            p2_wins_v1 += 1
+                    
+                        p1_cards_v2, p2_cards_v2 = variation2(game, p1, p2)
+                        if p1_cards_v2 > p2_cards_v2:
+                            p1_wins_v2 += 1
+                        elif p2_cards_v2 > p1_cards_v2:
+                            p2_wins_v2 += 1
+                    
+                    results_v1.append({
+                        'Sequence 1': p1, 
+                        'Sequence 2': p2, 
+                        'Player 1 Wins': p1_wins_v1, 
+                        'Player 2 Wins': p2_wins_v1, 
+                        'Player 1 Win %': round((p1_wins_v1/(p1_wins_v1 + p2_wins_v1))*100, 2)
+                    })
+                    results_v2.append({
+                        'Sequence 1': p1, 
+                        'Sequence 2': p2, 
+                        'Player 1 Wins': p1_wins_v2, 
+                        'Player 2 Wins': p2_wins_v2, 
+                        'Player 1 Win %': round((p1_wins_v2/(p1_wins_v2 + p2_wins_v2))*100, 2) 
+                    })
+
+                    pbar.update(1)
 
     aggreg_df1 = pd.DataFrame(results_v1)
     aggreg_df2 = pd.DataFrame(results_v2)
@@ -110,53 +116,63 @@ def analyze_all_combinations(simulations):
     return aggreg_df1, aggreg_df2
 
 
-def combine_past_data(existing_var1, existing_var2, var1_output_name, var2_output_name, folder='data'):
-    variation1_combined = existing_var1.copy() if existing_var1 is not None else pd.DataFrame()
-    variation2_combined = existing_var2.copy() if existing_var2 is not None else pd.DataFrame()
+def combine_past_data(new_var1, new_var2, var1_existing_filename, var2_existing_filename, folder='data'):
+    var1_existing_path = os.path.join(folder, var1_existing_filename)
+    var2_existing_path = os.path.join(folder, var2_existing_filename)
     
-    if not variation1_combined.empty:
-        variation1_combined.set_index(['Sequence 1', 'Sequence 2'], inplace=True)
-    if not variation2_combined.empty:
-        variation2_combined.set_index(['Sequence 1', 'Sequence 2'], inplace=True)
-    
-    for filename in os.listdir(folder):
-        if filename.endswith('.csv'):
-            file_path = os.path.join(folder, filename)
-            df = pd.read_csv(file_path, dtype={'Sequence 1': str, 'Sequence 2': str})
-            
-            # Ensure all sequences are 3 digits
+    if os.path.exists(var1_existing_path):
+        existing_var1 = pd.read_csv(var1_existing_path, dtype={'Sequence 1': str, 'Sequence 2': str})
+    else:
+        existing_var1 = pd.DataFrame(columns=['Sequence 1', 'Sequence 2', 'Player 1 Wins', 'Player 2 Wins', 'Player 1 Win %'])
+        
+    if os.path.exists(var2_existing_path):
+        existing_var2 = pd.read_csv(var2_existing_path, dtype={'Sequence 1': str, 'Sequence 2': str})
+    else:
+        existing_var2 = pd.DataFrame(columns=['Sequence 1', 'Sequence 2', 'Player 1 Wins', 'Player 2 Wins', 'Player 1 Win %'])
+
+    # Ensure all sequences are 3 digits for both new and existing data
+    for df in [new_var1, new_var2, existing_var1, existing_var2]:
+        if not df.empty:
             df['Sequence 1'] = df['Sequence 1'].apply(lambda x: x.zfill(3))
             df['Sequence 2'] = df['Sequence 2'].apply(lambda x: x.zfill(3))
-            
-            df.set_index(['Sequence 1', 'Sequence 2'], inplace=True)
-            
-            if 'variation1' in filename.lower():
-                variation1_combined = update_dataframe(variation1_combined, df)
-            elif 'variation2' in filename.lower():
-                variation2_combined = update_dataframe(variation2_combined, df)
-            else:
-                print(f"File {filename} doesn't match any variation pattern.")
     
-    variation1_combined.reset_index(inplace=True)
-    variation2_combined.reset_index(inplace=True)       
-    
-    variation1_combined.to_csv(f'{var1_output_name}.csv', index=False)
-    variation2_combined.to_csv(f'{var2_output_name}.csv', index=False)
-                
+    # Combine existing and new data for v 1
+    variation1_combined = update_dataframe(existing_var1, new_var1)
+
+    # Combine existing and new data for v 2
+    variation2_combined = update_dataframe(existing_var2, new_var2)
+
+    # Save the combined data back to csv
+    variation1_combined.to_csv(var1_existing_path, index=False)
+    variation2_combined.to_csv(var2_existing_path, index=False)
+
     return variation1_combined, variation2_combined
 
 def update_dataframe(existing_df, new_df):
+    # If there is no existing data, return the new data
     if existing_df.empty:
         return new_df
-    
-    common_columns = existing_df.columns.intersection(new_df.columns)
-    
-    existing_df.update(new_df[common_columns])
-    
+
+    # Ensure that Sequence 1 and Sequence 2 have the same identifiers
+    new_df = new_df.copy()
+    new_df['Sequence 1'] = new_df['Sequence 1'].apply(lambda x: x.zfill(3))
+    new_df['Sequence 2'] = new_df['Sequence 2'].apply(lambda x: x.zfill(3))
+
+    existing_df['Sequence 1'] = existing_df['Sequence 1'].apply(lambda x: x.zfill(3))
+    existing_df['Sequence 2'] = existing_df['Sequence 2'].apply(lambda x: x.zfill(3))
+
+    # Add the values for Player 1 Wins and Player 2 Wins without changing row order
+    existing_df['Player 1 Wins'] = existing_df['Player 1 Wins'] + new_df['Player 1 Wins']
+    existing_df['Player 2 Wins'] = existing_df['Player 2 Wins'] + new_df['Player 2 Wins']
+
+    # Recalculate Player 1 Win Percentage based on updated totals
     total_games = existing_df['Player 1 Wins'] + existing_df['Player 2 Wins']
-    existing_df['Player 1 Win %'] = (existing_df['Player 1 Wins'] / total_games * 100).round(2)                    
-    
+    existing_df['Player 1 Win %'] = (existing_df['Player 1 Wins'] / total_games * 100).fillna(0).round(2)
+
     return existing_df
+
+
+
 
 
 

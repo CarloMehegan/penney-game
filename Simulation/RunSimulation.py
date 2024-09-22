@@ -4,6 +4,7 @@ from tqdm import tqdm
 
 def generate_simulation_results(num_iterations: int,
                                 output_filename: str,
+                                seed = 123,
                                 path: str = "data"
                                ) -> str:
     """
@@ -12,6 +13,7 @@ def generate_simulation_results(num_iterations: int,
     Parameters:
     - num_iterations: int, number of times to shuffle the deck and store the result
     - output_filename: str, name of the file to save results (without the .npy extension)
+    - seed: optional, seed for reproducibility (default is 123)
     - path: str, optional, the directory where the file will be saved (default is 'fake_data')
     """
 
@@ -20,7 +22,7 @@ def generate_simulation_results(num_iterations: int,
     black = ['1'] * 26
     deck = black + red
     
-    np.random.seed(123)  # optionally, set seed for reproducibility
+    np.random.seed(seed)  # optionally, set seed for reproducibility
     
     # store results
     results = []
