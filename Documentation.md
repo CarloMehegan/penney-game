@@ -127,7 +127,9 @@ Functionality:
 ## DataVisualization.py
 
 
-The DataVisualization file helps with generating and saving heatmaps for the probability of player 1 winning for every possible combination of color card sequences. 
+The DataVisualization file helps with generating and saving heatmaps for the probability of player 1 winning for every possible combination of color card sequences.
+
+Note that the **title of the heatmaps contains an approximation** of the amount of games played. This number is taken from one of the variations. It is approximate because ties are dropped from the data, meaning that each game variation may have slightly different amounts of actual finished, non-tying games.
 
 `generate_heatmap`
 
