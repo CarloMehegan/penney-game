@@ -152,3 +152,9 @@ Functionality:
 
 ## RunEverything.ipynb
 The RunEverything notebook allows you, the FLB, to simply run a few lines of code and produce two heatmaps, along with the corresponding data frames.
+
+---
+
+
+## The Goal / Moving Forward
+Looking at the probabilities of the two version of the penney's game, we can see that while there are differences in some of the percentages for player 1 winning, overall the heatmap shows a similar pattern between both games. This may sort of highlight the idea that no matter what variation of the penney's game are played, the same pattern of some sequences having a more or less advantage exists. Based on our heatmaps, there are some clear instances where one type of sequence from player 1 may beat player 2, but collectively we thought that if the type of sequence chosen was privately that brings a lot of random chance into question. Which ever person chooses the optimal sequence at that point is more likely to win. This could also mean that since there are certain sequences that are more likely to win than others, that might lower the choices one player may take in order to have a more likely chance to win overall games played. 
