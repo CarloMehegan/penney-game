@@ -151,7 +151,7 @@ Functionality:
 ---
 
 ## RunEverything.ipynb
-The RunEverything notebook allows you, the FLB, to simply run a few lines of code and produce two heatmaps, along with the corresponding data frames.
+The RunEverything notebook allows you, the FLB, to simply run a few lines of code to add new simulations and produce the resulting heatmaps.
 
 ---
 
