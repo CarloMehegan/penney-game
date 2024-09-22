@@ -58,7 +58,7 @@ def generate_heatmap(data: pd.DataFrame, filename: str, vmin: float = 0.0, vmax:
     plt.ylabel('Player 1 Sequence')
     
     # Save heatmap
-    full_filename = f'{filename}.png'
+    full_filename = f'figures/{filename}.png'
     ax.get_figure().savefig(full_filename)
     
     print(f'<> {full_filename} saved <>')
