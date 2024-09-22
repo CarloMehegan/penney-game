@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import math
+
 
 def generate_heatmap(data: pd.DataFrame, filename: str, vmin: float = 0.0, vmax: float = 100.0, 
                      title: str = ''):
@@ -15,6 +17,14 @@ def generate_heatmap(data: pd.DataFrame, filename: str, vmin: float = 0.0, vmax:
         vmin, vmax: Value bounds for the heatmap.
         title: Title to display on the generated heatmap.
     '''
+
+    # Round total_games down to the nearest hundred
+    # (To account for ties, and the fact that each variation has a diff number of ties)
+    total_games = math.floor((data.iloc[0]['Player 1 Wins'] + data.iloc[0]['Player 2 Wins']) / 100) * 100
+
+    # Update the title with the total games
+    title += f'Player 1 Win Percentage (Total Non-Tie Games, Approx.: {total_games})'
+
     # mean() is redundant here
     # This mainly exists for readability later on
     probs = data[['Sequence 1', 'Sequence 2', 'Player 1 Win %']].groupby(['Sequence 1', 'Sequence 2']).mean()
