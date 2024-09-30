@@ -1,12 +1,12 @@
 import numpy as np
 import os
 from tqdm import tqdm
+from typing import List
 
 def generate_simulation_results(num_iterations: int,
-                                output_filename: str,
+                                seq: str,
                                 seed = 123,
-                                path: str = "data"
-                               ) -> str:
+                               ) -> List[List[int]]:
     """
     Simulates shuffling a deck of red and black cards and saves the results as a .npy file.
 
@@ -18,27 +18,40 @@ def generate_simulation_results(num_iterations: int,
     """
 
     # initialize deck
-    red = ['0'] * 26
-    black = ['1'] * 26
+    red = ['1'] * 26
+    black = ['0'] * 26
     deck = black + red
     
-    np.random.seed(seed)  # optionally, set seed for reproducibility
+    # optionally, set seed for reproducibility
     
     # store results
-    results = []
+    # Change with array instead of list, lot faster. 
+    results = np.empty((num_iterations, 2), dtype=object)
+    print(results.shape)
     for i in tqdm(range(num_iterations)):
-        np.random.shuffle(deck)
-        results.append(int(''.join(deck), 2))  # append binary as integer
+        np.random.seed(seed+i)
+        ndeck = np.random.choice(deck, len(deck), replace=False)
+        results[i] = [seed+i, int(''.join(ndeck), 2)]  # append binary as integer
     
-    # ensure the directory exists
-    if not os.path.exists(path):
-        os.makedirs(path)
+    # # ensure the directory exists
+    # if not os.path.exists(path):
+    #     os.makedirs(path)
     
-    # construct the full file path
-    full_filename = os.path.join(path, output_filename + '.npy')
+    # # construct the full file path
+    # full_filename = os.path.join(path, output_filename + '.npy')
     
-    # save the results to a .npy file
-    np.save(full_filename, results)
+    # # save the results to a .npy file
+    # np.save(full_filename, results)
     
-    print(f"Shuffled decks saved to {full_filename}")
-    return full_filename
+    # print(f"Shuffled decks saved to {full_filename}")
+    return results
+
+if __name__ == "__main__":
+    # np.random.seed(42)
+    red = '1' * 26
+    black = '0' * 26
+    deck = black + red
+    # print(np.random.choice(deck, len(deck), replace=False))
+    res = generate_simulation_results(1000, deck, seed=1)
+    print(res)
+    print(res[-1])
