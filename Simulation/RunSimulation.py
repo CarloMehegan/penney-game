@@ -4,7 +4,7 @@ from tqdm import tqdm
 from typing import List
 
 def generate_simulation_results(num_iterations: int,
-                                seq: str,
+                                deck: str,
                                 seed = 123,
                                ) -> List[List[int]]:
     """
@@ -16,11 +16,6 @@ def generate_simulation_results(num_iterations: int,
     - seed: optional, seed for reproducibility (default is 123)
     - path: str, optional, the directory where the file will be saved (default is 'fake_data')
     """
-
-    # initialize deck
-    red = ['1'] * 26
-    black = ['0'] * 26
-    deck = black + red
     
     # optionally, set seed for reproducibility
     
@@ -30,21 +25,21 @@ def generate_simulation_results(num_iterations: int,
     print(results.shape)
     for i in tqdm(range(num_iterations)):
         np.random.seed(seed+i)
-        ndeck = np.random.choice(deck, len(deck), replace=False)
+        ndeck = np.random.choice(list(deck), len(deck), replace=False)
         results[i] = [seed+i, int(''.join(ndeck), 2)]  # append binary as integer
     
-    # # ensure the directory exists
-    # if not os.path.exists(path):
-    #     os.makedirs(path)
-    
-    # # construct the full file path
-    # full_filename = os.path.join(path, output_filename + '.npy')
-    
-    # # save the results to a .npy file
-    # np.save(full_filename, results)
-    
-    # print(f"Shuffled decks saved to {full_filename}")
     return results
+#q: getting an error in generate_simulation_results, ValueError at np.random.choice(deck, len(deck), replace=False). a must be 1-dimensional or an integer
+#q: I think the issue is that the deck is a string, so we need to convert it to a list.
+#q: is there a way to shuffle a string in place? 
+
+def generate_sequence(
+        seq: str,
+        seed = 123,
+    ):
+    np.random.seed(seed)
+    return np.random.choice(seq, len(seq), replace=False)
+    
 
 if __name__ == "__main__":
     # np.random.seed(42)
@@ -52,6 +47,6 @@ if __name__ == "__main__":
     black = '0' * 26
     deck = black + red
     # print(np.random.choice(deck, len(deck), replace=False))
-    res = generate_simulation_results(1000, deck, seed=1)
+    res = generate_simulation_results(1000000, deck, seed=1)
     print(res)
     print(res[-1])
