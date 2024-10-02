@@ -16,7 +16,7 @@ def generate_simulation_results(num_iterations: int,
     - seed: optional, seed for reproducibility (default is 123)
     - path: str, optional, the directory where the file will be saved (default is 'fake_data')
     """
-    
+    deck = list(deck)
     # optionally, set seed for reproducibility
     
     # store results
@@ -24,9 +24,8 @@ def generate_simulation_results(num_iterations: int,
     results = np.empty((num_iterations, 2), dtype=object)
     print(results.shape)
     for i in tqdm(range(num_iterations)):
-        np.random.seed(seed+i)
-        ndeck = np.random.choice(list(deck), len(deck), replace=False)
-        results[i] = [seed+i, int(''.join(ndeck), 2)]  # append binary as integer
+        ndeck = generate_sequence(list(deck), seed=seed+i)
+        results[i] = [seed+i, int(ndeck, 2)]  # append binary as integer
     
     return results
 #q: getting an error in generate_simulation_results, ValueError at np.random.choice(deck, len(deck), replace=False). a must be 1-dimensional or an integer
@@ -38,7 +37,7 @@ def generate_sequence(
         seed = 123,
     ):
     np.random.seed(seed)
-    return np.random.choice(seq, len(seq), replace=False)
+    return ''.join(np.random.choice(seq, len(seq), replace=False))
     
 
 if __name__ == "__main__":
