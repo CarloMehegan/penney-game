@@ -46,6 +46,6 @@ def generate_sequence(seq: str, seed: int) -> List[str]:
 
 if __name__ == "__main__":
     # Generate 100,000 simulation results
-    res = generate_simulation_results(1000000)
+    res = generate_data(1000000)
     print(res)
     print(res[-1])  # Print the last simulation result
